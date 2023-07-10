@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Caprasimo', cursive;
+        }
+
+        body {
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background: conic-gradient(from 135deg at bottom right, rgb(10, 238, 238), rgb(128, 0, 255));
+        }
+
+        .container {
+            width: 95%;
+            height: 100vh;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clock {
+            width: fit-content;
+            margin: auto;
+            cursor: pointer;
+            padding: 20px;
+            border-radius: 20px 0 20px 0;
+            box-shadow: 10px 10px 40px 1px black;
+            color: white;
+            background: conic-gradient(from 135deg at 50% 125%, #1f005c, #003298, #005ac6, #007fdc, #00a2d3, #00c4ae, #00e474, #00ff00, #1f005c, #003298, #005ac6, #007fdc, #00a2d3, #00c4ae, #00e474, #00ff00);
+        }
+
+        .clock h1 {
+            display: inline-block;
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 5rem;
+        }
+
+        @media(max-width:768px) {
+
+            #bar1,
+            #bar2 {
+                display: none;
+            }
+
+            .clock {
+                text-align: center;
+                width: 100%;
+            }
+
+            .clock h1 {
+                display: block;
+            }
+        }
+
+        @media(max-width:480px) {
+            .clock h1 {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="clock" data-tilt>
+            <h1 id="day">MON</h1>
+            <h1 id="hour">04</h1>
+            <h1 id="bar1">|</h1>
+            <h1 id="minute">20</h1>
+            <h1 id="bar2">|</h1>
+            <h1 id="ampm">PM</h1>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('load', ct)
+        function ct() {
+            let date = new Date();
+            let dayNumber = date.getDay();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let ampm = hour >= 12 ? 'PM' : 'AM';
+            let dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            hour = hour % 12;
+            hour = hour ? 12 : '12';
+            hour = hour < 10 ? '0' + hour : hour;
+            minute = minute < 10 ? '0' + minute : minute;
+            document.getElementById("day").innerHTML = dayNames[dayNumber];
+            document.getElementById("hour").innerHTML = hour;
+            document.getElementById("minute").innerHTML = minute;
+            document.getElementById("ampm").innerHTML = ampm;
+            setTimeout(ct, 200);
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+</body>
+
+</html>
